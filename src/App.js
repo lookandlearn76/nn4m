@@ -31,47 +31,45 @@ class App extends Component {
           <h1 className="App-title">Welcome to the NN4M test for Mark Hayden</h1>
         </header>
         <Navbar collapseOnSelect>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <a href="#home">React-Bootstrap</a>
-            </Navbar.Brand>
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav>
-              <NavItem eventKey={1} href="#">
-                Select App
-              </NavItem>
-              <NavItem eventKey={2} href="#">
-                Compare
-              </NavItem>
-              <NavItem eventKey={3} href="#">
-                This Week
-              </NavItem>
-              <NavItem eventKey={4} href="#">
-                Against
-              </NavItem>
-              <NavItem eventKey={5} href="#">
-                Last Week
-              </NavItem>
-              <NavItem eventKey={6} href="#">
-                Within
-              </NavItem>
-              <NavItem eventKey={7} href="#">
-                Filter
-              </NavItem>
-              <NavItem eventKey={8} href="#">
-                RESET
-              </NavItem>
-            </Nav>
-          </Navbar.Collapse>
+            <Navbar.Header>
+
+            </Navbar.Header>
+            <Navbar.Collapse>
+              <Nav className="centered">
+                <NavItem  className="spreadNavItem bottomLine" eventKey={1} href="#">
+                  Select App
+                </NavItem>
+                <NavItem className="spreadNavItem" eventKey={2} href="#">
+                  Compare
+                </NavItem>
+                <NavItem className="spreadNavItem bottomLine" eventKey={3} href="#">
+                  This Week
+                </NavItem>
+                <NavItem className="spreadNavItem" eventKey={4} href="#">
+                  Against
+                </NavItem>
+                <NavItem className="spreadNavItem bottomLine" eventKey={5} href="#">
+                  Last Week
+                </NavItem>
+                <NavItem className="spreadNavItem" eventKey={6} href="#">
+                  Within
+                </NavItem>
+                <NavItem className="spreadNavItem bottomLine" eventKey={7} href="#">
+                  Filter
+                </NavItem>
+                <NavItem className="spreadNavItem" eventKey={8} href="#">
+                  RESET
+                </NavItem>
+              </Nav>
+            </Navbar.Collapse>
         </Navbar>
-        <div class="container">
+        <div className="container">
           <Row className="show-grid">
             <Col xs={12} md={4}>
               <Panel>
-                <Panel.Heading>
+                <Panel.Body>
                   Dashboard
-                </Panel.Heading>
+                </Panel.Body>
                 <Panel.Body>
                   <div className="video-detail col-md-8">
                     <p>The dashboard data is</p>
@@ -80,13 +78,16 @@ class App extends Component {
                     </div>
                   </div>
                 </Panel.Body>
+                <Panel.Footer>
+
+                </Panel.Footer>
               </Panel>
             </Col>
             <Col xs={12} md={4}>
               <Panel>
-                <Panel.Heading>
+                <Panel.Body>
                   Orders
-                </Panel.Heading>
+                </Panel.Body>
                 <Panel.Body>
                   <div className="video-detail col-md-8">
                     <p>The orders data is</p>
@@ -95,6 +96,9 @@ class App extends Component {
                     </div>
                   </div>
                 </Panel.Body>
+                <Panel.Footer>
+
+                </Panel.Footer>
               </Panel>
             </Col>
             <Col xs={12} md={4}>
@@ -110,6 +114,9 @@ class App extends Component {
                     </div>
                   </div>
                 </Panel.Body>
+                <Panel.Footer>
+
+                </Panel.Footer>
               </Panel>
             </Col>
           </Row>
@@ -127,6 +134,9 @@ class App extends Component {
                     </div>
                   </div>
                 </Panel.Body>
+                <Panel.Footer>
+
+                </Panel.Footer>
               </Panel>
             </Col>
             <Col xs={12} md={4}>
@@ -142,6 +152,9 @@ class App extends Component {
                     </div>
                   </div>
                 </Panel.Body>
+                <Panel.Footer>
+
+                </Panel.Footer>
               </Panel>
             </Col>
             <Col xs={12} md={4}>
@@ -157,6 +170,9 @@ class App extends Component {
                     </div>
                   </div>
                 </Panel.Body>
+                <Panel.Footer>
+
+                </Panel.Footer>
               </Panel>
             </Col>
           </Row>
@@ -174,6 +190,9 @@ class App extends Component {
                     </div>
                   </div>
                 </Panel.Body>
+                <Panel.Footer>
+
+                </Panel.Footer>
               </Panel>
             </Col>
             <Col xs={12} md={4}>
@@ -189,6 +208,9 @@ class App extends Component {
                     </div>
                   </div>
                 </Panel.Body>
+                <Panel.Footer>
+
+                </Panel.Footer>
               </Panel>
             </Col>
             <Col xs={12} md={4}>
@@ -204,6 +226,9 @@ class App extends Component {
                     </div>
                   </div>
                 </Panel.Body>
+                <Panel.Footer>
+
+                </Panel.Footer>
               </Panel>
             </Col>
             <Col xs={12} md={4}>
@@ -219,6 +244,9 @@ class App extends Component {
                     </div>
                   </div>
                 </Panel.Body>
+                <Panel.Footer>
+
+                </Panel.Footer>
               </Panel>
             </Col>
           </Row>
