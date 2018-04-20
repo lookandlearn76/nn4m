@@ -31,13 +31,28 @@
 .centered {
   display: inline-block;
   float: none;
+  margin-bottom: -5px;
 
 }
 
 .navbar {
+  box-sizing: border-box;
   border-bottom: 5px solid #d3d3d3;
 }
 
+.panel-heading {
+  background-color: white;
+}
+.custom-panel {
+  background-color: white;
+}
+.bsClass {
+  background-color: white;
+}
+.custom {
+  background-color: white;
+  font-size: 20px;
+}
 
 .bottomLine {
   border-bottom: 5px solid #36454f;

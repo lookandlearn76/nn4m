@@ -1,6 +1,8 @@
 import React from 'react';
+import WidgetList from 'widgetList.
 
-const VideoInfo = ({video}) => {
+
+const WidgetInfo = ({video}) => {
   if (!video) {
     return <div>Data is loading......</div>;
   }
@@ -21,14 +23,9 @@ const VideoInfo = ({video}) => {
   const url = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard'
   console.log(url)
   return (
-    <div className="video-detail col-md-8">
-      <div className="embed-responsive embed-responsive-16by9">
-        <iframe className="embed-responsive-item" src={url}></iframe>
-      </div>
-      <div className="details">
-        <div>{}</div>
-        <div>{video.snippet.description}</div>
-      </div>
+    <div>
+      <WidgetList/>
+      <WidgetList/>
     </div>
   );
 };

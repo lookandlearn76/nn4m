@@ -1,255 +1,133 @@
 import React, { Component } from 'react';
-import { Panel, Row, Col, Navbar, Nav, NavItem } from 'react-bootstrap';
-import './App.css';
 
-const url1 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard'
+import _ from 'lodash';
+import WidgetList from './components/widgetList'
+import API from './utils/api'
+import './App.css';
+import NavBar from './components/navbar'
+
+
+//const url1 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard'
+//console.log(url1)
+const url1 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/orders'
 console.log(url1)
-const url2 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/orders'
+const url2 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/revenue'
 console.log(url2)
-const url3 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/revenue'
+const url3 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/conversion'
 console.log(url3)
-const url4 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/conversion'
+const url4 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/appVersion'
 console.log(url4)
-const url5 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/appVersion'
+const url5 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/abandon'
 console.log(url5)
-const url6 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/abandon'
+const url6 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/download'
 console.log(url6)
-const url7 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/download'
+const url7 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/reviews'
 console.log(url7)
-const url8 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/reviews'
+const url8 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/visits'
 console.log(url8)
-const url9 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/visits'
+const url9 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/pushPerformance'
 console.log(url9)
-const url10 = 'https://private-eeee5-nn4mjstest.apiary-mock.com/dashboard/pushPerformance'
-console.log(url10)
+//const ROOT_URL = `https://private-eeee5-nn4mjstest.apiary-mock.com/${DATA_KEY}`;
+
+// --- use the root for every call
+// --- add the data key to the root for each call.
+// --- only call the data conditionally on the dashboard data
+// ---
+// --- separate out the topline from the databox ie. if type === databox or type === topline
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+     topUrlEnd: [],
+     boxUrlEnd: [],
+     topline: [],
+     databox: [],
+     isLoading: false
+    };
+
+  }
+  componentDidMount() {
+    this.setState({ isLoading: true})
+
+    if(this.state.topline.length < 1){
+
+    // Make a request for vehicle data
+      API.get(`dashboard`)
+        .then(res => {
+          let top = [];
+          let box = [];
+          let topUrlEnd = [];
+          let boxUrlEnd = [];
+          res.data.items.map(function(item){
+            if(item.type === 'topline'){
+              top.push(item.title),
+              topUrlEnd.push(item.data)
+            } else if (item.type === 'databox'){
+              box.push(item.title),
+              boxUrlEnd.push(item.data)
+            }
+          })
+
+          console.log(top)
+          console.log(box)
+          console.log(topUrlEnd)
+            console.log(boxUrlEnd)
+          console.log(res)
+          this.setState({ topline: top, databox: box, topUrlEnd: topUrlEnd, boxUrlEnd: boxUrlEnd, isLoading: false })
+        })
+    }
+  }
+  /*inputChangeHandler : function (event) {
+      this.setState({ [event.target.id]: event.target.value });
+      // alternatively using template strings for strings
+      // this.setState({ [`key${event.target.id}`]: event.target.value });
+  }*/
+  componentWillUpdate(nextProps, nextState){
+//    nextState.dashboard
+//    API.get(nextState.dashboard)
+  }
+  /*        .then(axios.all([
+          API.get('/api/seat/models'),
+          API.get('/api/volkswagen/models')
+          API.get('/api/seat/models'),
+          API.get('/api/volkswagen/models')
+          API.get('/api/seat/models'),
+          API.get('/api/volkswagen/models')
+          ])
+      .then(axios.spread(function (seat, volkswagen) {
+        this.setState({ vehicles: seat.data + volkswagen.data })
+      }))
+      //.then(response => this.setState({ vehicles: response.data }))
+      .catch(error => console.log(error));
+  }
+    API.get(`dashboard`)
+      .then(res => {
+        const data = res.data;
+
+        this.setState({ dashboard: data.items, isLoading: false });
+
+      })
+    }
+  }
+*/
   render() {
+    const { isLoading } = this.state;
+    if (isLoading) {
+        return <p>Loading ...</p>;
+    }
+    const { topUrlEnd, boxUrlEnd, topline, databox } = this.state
     return (
       <div className="App">
+
         <header className="App-header">
           <h1 className="App-title">Welcome to the NN4M test for Mark Hayden</h1>
         </header>
-        <Navbar collapseOnSelect>
-            <Navbar.Header>
-
-            </Navbar.Header>
-            <Navbar.Collapse>
-              <Nav className="centered">
-                <NavItem  className="spreadNavItem bottomLine" eventKey={1} href="#">
-                  Select App
-                </NavItem>
-                <NavItem className="spreadNavItem" eventKey={2} href="#">
-                  Compare
-                </NavItem>
-                <NavItem className="spreadNavItem bottomLine" eventKey={3} href="#">
-                  This Week
-                </NavItem>
-                <NavItem className="spreadNavItem" eventKey={4} href="#">
-                  Against
-                </NavItem>
-                <NavItem className="spreadNavItem bottomLine" eventKey={5} href="#">
-                  Last Week
-                </NavItem>
-                <NavItem className="spreadNavItem" eventKey={6} href="#">
-                  Within
-                </NavItem>
-                <NavItem className="spreadNavItem bottomLine" eventKey={7} href="#">
-                  Filter
-                </NavItem>
-                <NavItem className="spreadNavItem" eventKey={8} href="#">
-                  RESET
-                </NavItem>
-              </Nav>
-            </Navbar.Collapse>
-        </Navbar>
-        <div className="container">
-          <Row className="show-grid">
-            <Col xs={12} md={4}>
-              <Panel>
-                <Panel.Body>
-                  Dashboard
-                </Panel.Body>
-                <Panel.Body>
-                  <div className="video-detail col-md-8">
-                    <p>The dashboard data is</p>
-                    <div className="embed-responsive embed-responsive-16by9">
-                      <iframe className="embed-responsive-item" title={url1} src={url1}></iframe>
-                    </div>
-                  </div>
-                </Panel.Body>
-                <Panel.Footer>
-
-                </Panel.Footer>
-              </Panel>
-            </Col>
-            <Col xs={12} md={4}>
-              <Panel>
-                <Panel.Body>
-                  Orders
-                </Panel.Body>
-                <Panel.Body>
-                  <div className="video-detail col-md-8">
-                    <p>The orders data is</p>
-                    <div className="embed-responsive embed-responsive-16by9">
-                      <iframe className="embed-responsive-item" title={url2} src={url2}></iframe>
-                    </div>
-                  </div>
-                </Panel.Body>
-                <Panel.Footer>
-
-                </Panel.Footer>
-              </Panel>
-            </Col>
-            <Col xs={12} md={4}>
-              <Panel>
-                <Panel.Heading>
-                  Revenue
-                </Panel.Heading>
-                <Panel.Body>
-                  <div className="video-detail col-md-8">
-                    <p>The Revenue data is</p>
-                    <div className="embed-responsive embed-responsive-16by9">
-                      <iframe className="embed-responsive-item" src={url3}></iframe>
-                    </div>
-                  </div>
-                </Panel.Body>
-                <Panel.Footer>
-
-                </Panel.Footer>
-              </Panel>
-            </Col>
-          </Row>
-          <Row className="show-grid">
-            <Col xs={12} md={4}>
-              <Panel>
-                <Panel.Heading>
-                  Conversion
-                </Panel.Heading>
-                <Panel.Body>
-                  <div className="video-detail col-md-8">
-                    <p>The Conversion data is</p>
-                    <div className="embed-responsive embed-responsive-16by9">
-                      <iframe className="embed-responsive-item" src={url4}></iframe>
-                    </div>
-                  </div>
-                </Panel.Body>
-                <Panel.Footer>
-
-                </Panel.Footer>
-              </Panel>
-            </Col>
-            <Col xs={12} md={4}>
-              <Panel>
-                <Panel.Heading>
-                  App Version
-                </Panel.Heading>
-                <Panel.Body>
-                  <div className="video-detail col-md-8">
-                    <p>The App Version data is</p>
-                    <div className="embed-responsive embed-responsive-16by9">
-                      <iframe className="embed-responsive-item" src={url5}></iframe>
-                    </div>
-                  </div>
-                </Panel.Body>
-                <Panel.Footer>
-
-                </Panel.Footer>
-              </Panel>
-            </Col>
-            <Col xs={12} md={4}>
-              <Panel>
-                <Panel.Heading>
-                  Basket Abandonment
-                </Panel.Heading>
-                <Panel.Body>
-                  <div className="video-detail col-md-8">
-                    <p>The Basket Abandonment data is</p>
-                    <div className="embed-responsive embed-responsive-16by9">
-                      <iframe className="embed-responsive-item" src={url6}></iframe>
-                    </div>
-                  </div>
-                </Panel.Body>
-                <Panel.Footer>
-
-                </Panel.Footer>
-              </Panel>
-            </Col>
-          </Row>
-          <Row className="show-grid">
-            <Col xs={12} md={4}>
-              <Panel>
-                <Panel.Heading>
-                  Downloads
-                </Panel.Heading>
-                <Panel.Body>
-                  <div className="video-detail col-md-8">
-                    <p>The download data is</p>
-                    <div className="embed-responsive embed-responsive-16by9">
-                      <iframe className="embed-responsive-item" src={url7}></iframe>
-                    </div>
-                  </div>
-                </Panel.Body>
-                <Panel.Footer>
-
-                </Panel.Footer>
-              </Panel>
-            </Col>
-            <Col xs={12} md={4}>
-              <Panel>
-                <Panel.Heading>
-                  Reviews
-                </Panel.Heading>
-                <Panel.Body>
-                  <div className="video-detail col-md-8">
-                    <p>The Reviews data is</p>
-                    <div className="embed-responsive embed-responsive-16by9">
-                      <iframe className="embed-responsive-item" src={url8}></iframe>
-                    </div>
-                  </div>
-                </Panel.Body>
-                <Panel.Footer>
-
-                </Panel.Footer>
-              </Panel>
-            </Col>
-            <Col xs={12} md={4}>
-              <Panel>
-                <Panel.Heading>
-                  Visits
-                </Panel.Heading>
-                <Panel.Body>
-                  <div className="video-detail col-md-8">
-                    <p>The Visits data is</p>
-                    <div className="embed-responsive embed-responsive-16by9">
-                      <iframe className="embed-responsive-item" src={url9}></iframe>
-                    </div>
-                  </div>
-                </Panel.Body>
-                <Panel.Footer>
-
-                </Panel.Footer>
-              </Panel>
-            </Col>
-            <Col xs={12} md={4}>
-              <Panel>
-                <Panel.Heading>
-                  Push Performance
-                </Panel.Heading>
-                <Panel.Body>
-                  <div className="video-detail col-md-8">
-                    <p>The Push Performance data is</p>
-                    <div className="embed-responsive embed-responsive-16by9">
-                      <iframe className="embed-responsive-item" src={url10}></iframe>
-                    </div>
-                  </div>
-                </Panel.Body>
-                <Panel.Footer>
-
-                </Panel.Footer>
-              </Panel>
-            </Col>
-          </Row>
+        <NavBar/>
+        <div className='container'>
+          <WidgetList tileUrl={topUrlEnd} title={topline} />
+          <WidgetList tileUrl={boxUrlEnd} title={databox}/>
         </div>
 
       </div>
